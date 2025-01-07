@@ -158,8 +158,11 @@ class Network:
 
     def fit(self, times, data, arguments, initials=None, number=1, mlp=1):
         rates_to_fit = [r for r in list(self.rates.keys()) if not self.rates[r].fixed]
-        bounds = [[self.rates[r].lower_bound, r.upper_bound] for r in rates_to_fit]
+        bounds = [[self.rates[r].lower_bound, self.rates[r].upper_bound] for r in rates_to_fit]
         bound_types = [self.rates[r].bound_type for r in rates_to_fit]
+        for i in range(len(bounds)):
+            if bound_types[i] == "int":
+                bounds[i] = [int(bounds[i][0]), int(bounds[i][1])]
         
         if initials == None:
             y0s = [] # instantiate empty list
@@ -182,7 +185,7 @@ class Network:
             for experiment in data:
                 self.apply_stimuli(experiment["stimuli"], experiment["amts"], experiment["time_ranges"])
                 predictions = self.y(times)
-                for substrate_name, entries in data.items():
+                for substrate_name, entries in experiment["data"].items():
                     index = self.order.index(substrate_name)
                     for entry in entries:
                         prediction = predictions[entry[0], index]
@@ -191,7 +194,7 @@ class Network:
                         count += 1
                 self.reset_stimuli()
             return float(cost)/count
-
+        pdb.set_trace()
         fitting_model = ga(function = loss,
                            dimension = len(bounds),
                            variable_type = bound_types,
@@ -201,9 +204,9 @@ class Network:
 
     def apply_stimuli(self, stimuli, amts, time_ranges):
         for stimulus, amt, time_range in zip(stimuli, amts, time_ranges):
-            self.substrates[stimuli].total_amt = amt
-            self.substrates[stimuli].active_time_ranges = time_range
-            self.substrates[stimuli].applied = False
+            self.substrates[stimulus].total_amt = amt
+            self.substrates[stimulus].active_time_ranges = time_range
+            self.substrates[stimulus].applied = False
 
     def get_initial_values(self):
         return [self.substrates[substrate_name].initial_value for substrate_name in self.order] # return substrate values using the specific order
