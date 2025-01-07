@@ -194,13 +194,13 @@ class Network:
                         count += 1
                 self.reset_stimuli()
             return float(cost)/count
-        pdb.set_trace()
         fitting_model = ga(function = loss,
                            dimension = len(bounds),
                            variable_type = bound_types,
                            variable_boundaries = bounds,
                            algorithm_parameters = arguments)
         fitting_model.run(set_function=ga.set_function_multiprocess(loss, n_jobs=mlp))
+        print(rates_to_fit)
 
     def apply_stimuli(self, stimuli, amts, time_ranges):
         for stimulus, amt, time_range in zip(stimuli, amts, time_ranges):

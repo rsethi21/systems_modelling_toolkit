@@ -14,8 +14,8 @@ if __name__ == "__main__":
     n = Network("network_test", rates, substrates, interactions)
 
     time = np.linspace(0,500,num=10001)
-    # y = n.y(time)
-    # n.graph(y, time)
-    arguments = json.load(open("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/fitting_parameters.json"))
-    data = json.load(open("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/fit_data.json"))
-    n.fit(time, data, arguments, number=10, mlp=4)
+    y = n.y(time)
+    n.graph(y, time)
+    # arguments = json.load(open("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/fitting_parameters.json"))
+    # data = json.load(open("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/fit_data.json"))
+    # n.fit(time, data, arguments, number=10, mlp=4)
