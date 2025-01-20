@@ -97,16 +97,20 @@ class Network:
     def y_distribution(self):
         pass
 
-    def graph(self, y, time, path="./figure.png", random_state=0):
+    def graph(self, y, time, path="./figure.png", random_state=10, substrates_to_plot=None, ylim_lower=None, ylim_higher=None):
+        if substrates_to_plot == None:
+            substrates_to_plot = self.order
         colors = list(mcolors.CSS4_COLORS.keys())
         random.seed(random_state)
         random.shuffle(colors)
         fig = plt.figure()
-        for i, substrate in tqdm(enumerate(self.order), desc="Plotting Each Substrate", total=len(self.order)):
-            plt.plot(time, y[:,i], colors[i], label=self.substrates[substrate].name)
+        for i, substrate in tqdm(enumerate(substrates_to_plot), desc="Plotting Each Substrate", total=len(substrates_to_plot)):
+            plt.plot(time, y[:,self.order.index(self.substrates[substrate].name)], colors[i], label=self.substrates[substrate].name)
         plt.xlabel("Time (mins)",fontsize=12)
         plt.ylabel("Concentration (AU)",fontsize=12)
         plt.legend(loc="upper right", fontsize=5)
+        if ylim_lower != None and ylim_higher != None:
+            plt.ylim(ylim_lower, ylim_higher)
         fig.savefig(path)
 
     def graph_distribution(self):
