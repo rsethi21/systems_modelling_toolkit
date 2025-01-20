@@ -1,3 +1,6 @@
+import numpy as np
+import pandas as pd
+
 class Interaction:
     def __init__(
         self, name: str, resultant: str, stimulus: str, rate: str, effect: [1, -1], Kd: str = None, n: str = None

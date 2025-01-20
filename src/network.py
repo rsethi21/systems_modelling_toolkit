@@ -8,6 +8,7 @@ import matplotlib.colors as mcolors
 from tqdm import tqdm
 import pdb
 import random
+import json
 
 class Network:
     def __init__(self, name: str, rates_dictionary: dict, substrates_dictionary: dict, interactions_dictionary: dict):
@@ -61,7 +62,7 @@ class Network:
                     else:
                         return self.substrates[substrate_name].total_amt - self.substrates[substrate_name].current_value
             else:
-                return 0
+                return -self.substrates[substrate_name].current_value
         else:
             if self.substrates[substrate_name].substrate_type == "stimulus":
                 return 0
@@ -75,9 +76,22 @@ class Network:
             rates.append(self.calculate_rate(time, s))
         return rates
 
-    def y(self, times, parameter_sets=None):
+    def y(self, times, parameter_sets=None, steady_state_fold_normalization=True, fold_normalization=False):
         initials = self.get_initial_values()
         y = odeint(self.dydt, initials, times, args=(parameter_sets,))
+        if fold_normalization:
+            factors = y[0,:]
+            for i, substrate in enumerate(self.order):
+                if self.substrates[substrate].substrate_type == "stimulus":
+                    factors[i] = 1
+            y = y/factors
+        elif steady_state_fold_normalization:
+            self.reset_stimuli()
+            steady_state = odeint(self.dydt, initials, times, args=(parameter_sets,))[-1,:]
+            for i, substrate in enumerate(self.order):
+                if self.substrates[substrate].substrate_type == "stimulus":
+                    steady_state[i] = 1
+            y = y/steady_state
         return y
 
     def y_distribution(self):
@@ -156,7 +170,14 @@ class Network:
             else:
                 return rate
 
-    def fit(self, times, data, arguments, initials=None, number=1, mlp=1):
+    def load_adapter(self, path):
+        with open(path) as file:
+            parameters = json.load(file)
+        for rate_name, rate_obj in self.rates.items():
+            if rate_name in parameters.keys():
+                rate_obj.value = parameters[rate_name]
+
+    def fit(self, times, data, arguments, path="./adapter.json", initials=None, number=1, mlp=1):
         rates_to_fit = [r for r in list(self.rates.keys()) if not self.rates[r].fixed]
         bounds = [[self.rates[r].lower_bound, self.rates[r].upper_bound] for r in rates_to_fit]
         bound_types = [self.rates[r].bound_type for r in rates_to_fit]
@@ -200,7 +221,10 @@ class Network:
                            variable_boundaries = bounds,
                            algorithm_parameters = arguments)
         fitting_model.run(set_function=ga.set_function_multiprocess(loss, n_jobs=mlp))
-        print(rates_to_fit)
+        dictionary = {r: v for r, v in zip(rates_to_fit, fitting_model.result.variable)}
+        with open(path, "w") as file:
+            json.dump(dictionary, file)
+
 
     def apply_stimuli(self, stimuli, amts, time_ranges):
         for stimulus, amt, time_range in zip(stimuli, amts, time_ranges):
@@ -227,7 +251,6 @@ class Network:
                             self.substrates[substrate_name].applied = True
                     else:
                         self.substrates[substrate_name].applied = False
-            self.substrates[substrate_name].current_value >= self.substrates[substrate_name].total_amt
             self.substrates[substrate_name].current_value = new_values[i] # if not stimulus then just set to whatever the value is currently
 
     def reset_stimuli(self):

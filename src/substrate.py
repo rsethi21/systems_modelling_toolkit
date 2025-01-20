@@ -4,8 +4,8 @@ import numpy as np
 class Substrate:
     def __init__(
         self, name: str, initial_value: float, 
-        substrate_type: str, activation_rate: str, 
-        deactivation_rate: str, total_amt: float = None,
+        substrate_type: str, activation_rate: str = None, 
+        deactivation_rate: str = None, total_amt: float = None,
         other_state: str = None, active_time_ranges: str = None
     ):
         self.name = name # identify of the substrate

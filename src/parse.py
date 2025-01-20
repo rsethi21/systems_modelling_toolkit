@@ -7,8 +7,8 @@ from interaction import Interaction
 def fill_nas(df):
     for i, row in df.iterrows():
         for col in df.columns:
-            if pd.isna(df.loc[i, col]) or np.nan == df.loc[i,col]:
-                df.loc[i, col] = None
+            if pd.isna(df.loc[i,col]) or np.nan == df.loc[i,col]:
+                df.loc[i,col] = None
 
 # same comments for the other functions below
 def parse_rates(rates_csv_path):
@@ -28,6 +28,7 @@ def parse_substrates(substrates_csv_path):
     substrates_dictionary = {v: None for v in substrates_df.name.values}
     for _, substrate in substrates_df.iterrows():
         inputs = substrate.to_dict()
+        inputs = {n: v for n, v in inputs.items() if not pd.isna(v)}
         substrates_dictionary[inputs["name"]] = Substrate(**inputs)
     return substrates_dictionary
 
