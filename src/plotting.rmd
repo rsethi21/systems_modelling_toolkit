@@ -10,11 +10,17 @@ library(tidyverse)
 
 ```{r include=FALSE}
 data.path.raw = "//wsl.localhost/Ubuntu-24.04/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/current_fit_raw.csv"
+data.path.li = "//wsl.localhost/Ubuntu-24.04/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/current_fit_li.csv"
+data.path.atp = "//wsl.localhost/Ubuntu-24.04/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/current_fit_atp.csv"
 ```
 
 ```{r}
 df.raw = read.csv(data.path.raw)
+df.li = read.csv(data.path.li)
+df.atp = read.csv(data.path.atp)
 colnames(df.raw)[1] = "TIME"
+colnames(df.li)[1] = "TIME"
+colnames(df.atp)[1] = "TIME"
 ```
 
 ```{r}
@@ -22,7 +28,30 @@ head(df.raw)
 ```
 
 ```{r}
+df = data.frame(TIME=df.raw$TIME, LPS=df.raw$pAKT, ATP=df.atp$pAKT, LI=df.li$pAKT)
+df %>%
+  pivot_longer(cols = c(-TIME), names_to="STIMULI", values_to="VALUES") %>%
+  ggplot(aes(x=TIME, y=VALUES, color=STIMULI)) +
+  geom_line()
+```
+
+
+```{r}
 df.raw %>%
+  pivot_longer(cols = c(-TIME), names_to="SUBSTRATE", values_to="CONCENTRATIONS") %>%
+  ggplot(aes(x=TIME, y=CONCENTRATIONS, color=SUBSTRATE)) +
+  geom_line()
+```
+
+```{r}
+df.atp %>%
+  pivot_longer(cols = c(-TIME, -AKT, -PTEN, -LPS, -HDACi, -LiCl, -LY294002, -bpV, -GSK3B, -PI3K), names_to="SUBSTRATE", values_to="CONCENTRATIONS") %>%
+  ggplot(aes(x=TIME, y=CONCENTRATIONS, color=SUBSTRATE)) +
+  geom_line()
+```
+
+```{r}
+df.li %>%
   pivot_longer(cols = c(-TIME), names_to="SUBSTRATE", values_to="CONCENTRATIONS") %>%
   ggplot(aes(x=TIME, y=CONCENTRATIONS, color=SUBSTRATE)) +
   geom_line()

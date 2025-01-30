@@ -21,7 +21,7 @@ if __name__ == "__main__":
     
     n.load_adapter("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/adapter.json")
     y = n.y(time, steady_state_fold_normalization=False)
-    # n.store_track(y, time, "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/current_fit_raw.csv")
+    n.store_track(y, time, "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/current_fit_atp.csv")
     n.graph(y, time, path="./figure_literature", substrates_to_plot=["pAKT", "pPTEN", "GSK3B", "LPS"], ylim_lower=0, ylim_higher=2)
     
     
