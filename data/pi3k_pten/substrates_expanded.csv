@@ -13,5 +13,5 @@
 11,"HDACi",0.0,"stimulus",,,0.0,,"0,500"
 12,"LiCl",0.0,"stimulus",,,0.0,,"100,280"
 13,"ATP",0.0,"stimulus",,"ATPdephos",0.0,,"0,500"
-14,"ADP",0.0,"enzyme","ATPdephos","ADPDegradation",,"ATP",
-15,"P2Y12G",0.0,"enzyme","kGp","rGp",0.0,,
+14,"ADP",0.00000001,"enzyme","ATPdephos","ADPDegradation",,"ATP",
+15,"P2Y12G",0.00000001,"enzyme","kGp","rGp",0.0,,
