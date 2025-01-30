@@ -1,0 +1,37 @@
+---
+title: "RobustPlotting"
+output: html_document
+date: "2025-01-30"
+---
+
+```{r echo=TRUE, results='hide', error=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+```{r include=FALSE}
+data.path.raw = "C:/Users/HOME PC/Desktop/current_fit_raw.csv"
+data.path.folds = "C:/Users/HOME PC/Desktop/current_fit.csv"
+```
+
+```{r}
+df.folds = read.csv(data.path.folds)
+df.raw = read.csv(data.path.raw)
+colnames(df.folds)[1] = "TIME"
+colnames(df.raw)[1] = "TIME"
+```
+
+```{r}
+head(df.raw)
+```
+
+```{r}
+head(df.folds)
+```
+
+```{r}
+df.raw %>%
+  pivot_longer(cols = c(-TIME), names_to="SUBSTRATE", values_to="CONCENTRATIONS") %>%
+  ggplot(aes(x=TIME, y=CONCENTRATIONS, color=SUBSTRATE)) +
+  geom_line()
+```
+
