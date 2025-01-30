@@ -68,7 +68,7 @@ class Network:
                     else:
                         return self.substrates[substrate_name].total_amt - self.substrates[substrate_name].current_value
             else:
-                return -self.substrates[substrate_name].current_value
+                return self.substrates[substrate_name].initial_value-self.substrates[substrate_name].current_value
         else:
             if self.substrates[substrate_name].substrate_type == "stimulus":
                 return 0

@@ -1,7 +1,7 @@
 ,name,initial_value,substrate_type,activation_rate,deactivation_rate,total_amt,other_state,active_time_ranges
 0,"pPTEN",0.5,"enzyme","PTENphos","PTENdephos",,"PTEN",
 1,"pPI3K",0.5,"enzyme","PI3Kphos","PI3Kdephos",,"PI3K",
-2,"pAKT",0.5,"enzyme","AKTphos","AKTdephos",,"AKT",
+2,"pAKT",0.5,"enzyme","AKTphos","AKTdephos",,"AKT","100,200"
 3,"pGSK3B",0.5,"enzyme","GSK3Bphos","GSK3Bdephos",,"GSK3B",
 4,"PTEN",0.5,"enzyme","PTENdephos","PTENphos",,pPTEN,
 5,"PI3K",0.5,"enzyme","PI3Kdephos","PI3Kphos",,pPI3K,

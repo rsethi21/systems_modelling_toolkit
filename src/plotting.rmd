@@ -9,23 +9,16 @@ library(tidyverse)
 ```
 
 ```{r include=FALSE}
-data.path.raw = "C:/Users/HOME PC/Desktop/current_fit_raw.csv"
-data.path.folds = "C:/Users/HOME PC/Desktop/current_fit.csv"
+data.path.raw = "//wsl.localhost/Ubuntu-24.04/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/current_fit_raw.csv"
 ```
 
 ```{r}
-df.folds = read.csv(data.path.folds)
 df.raw = read.csv(data.path.raw)
-colnames(df.folds)[1] = "TIME"
 colnames(df.raw)[1] = "TIME"
 ```
 
 ```{r}
 head(df.raw)
-```
-
-```{r}
-head(df.folds)
 ```
 
 ```{r}
