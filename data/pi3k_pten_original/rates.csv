@@ -1,0 +1,17 @@
+,name,value,lower_bound,upper_bound,bound_type,fixed
+0,"PTENphos",0.3764385409318356,0.01,1.0,"real",False
+1,"PTENdephos",0.980711484140796,0.01,1.0,"real",False
+2,"PI3Kphos",0.32301536584912893,0.01,1.0,"real",False
+3,"PI3Kdephos",0.18682091200853052,0.01,1.0,"real",False
+4,"AKTphos",0.2819667049850695,0.01,1.0,"real",False
+5,"AKTdephos",0.07859264724285994,0.01,1.0,"real",False
+6,"GSK3Bphos",0.1326562127801874,0.01,1.0,"real",False
+7,"GSK3Bdephos",0.5330625170911949,0.01,1.0,"real",False
+8,"LPSstim",0.14208634866052358,0.01,1.0,"real",False
+9,"HDACIstim",0.9375994670581349,0.01,1.0,"real",False
+10,"LY294002stim",0.6527727706471921,0.01,1.0,"real",False
+11,"BPVstim",0.40343838910436447,0.01,1.0,"real",False
+12,"n1",1,1,10,"int",True
+13,"n2",2,1,10,"int",True
+14,"Knegativefeedback",0.6541944096648074,0.01,1.0,"real",False
+15,"Kpositivefeedback",0.9787300349056641,0.01,1.0,"real",False

@@ -16,7 +16,7 @@ if __name__ == "__main__":
     resolution = 10000
     time = np.linspace(0,499,num=resolution)
     for s in n.substrates.keys():
-        print(f"{s} = {n.represent_rate(51, s)}")
+        print(f"{s} = {n.represent_rate(101, s)}")
     
     
     n.load_adapter("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/adapter.json")
