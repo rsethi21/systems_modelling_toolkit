@@ -13,14 +13,15 @@ if __name__ == "__main__":
     rates = parse_rates("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/rates_expanded.csv")
     n = Network("network_original", rates, substrates, interactions)
 
-    time = np.linspace(0,500,num=10001)
+    resolution = 10000
+    time = np.linspace(0,499,num=resolution)
     for s in n.substrates.keys():
         print(f"{s} = {n.represent_rate(51, s)}")
     
     
     n.load_adapter("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/adapter.json")
     y = n.y(time, steady_state_fold_normalization=True)
-    n.store_track(y, "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/current_fit.csv")
+    n.store_track(y, time, "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/current_fit.csv")
     n.graph(y, time, path="./figure_literature", substrates_to_plot=["pAKT", "pPTEN", "GSK3B", "LPS"], ylim_lower=0, ylim_higher=2)
     
     
