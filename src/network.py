@@ -19,6 +19,11 @@ class Network:
         self.interactions = interactions_dictionary
         self.order = list(self.substrates.keys())
 
+    def store_track(self,y,path):
+        df = pd.DataFrame(y)
+        df.columns = self.order
+        df.to_csv(path)
+
     def calculate_rate(self, t, substrate_name):
         # calculate base rates
         base_contribution_positive, base_contribution_negative = Interaction.calculate_base_contributions(self.substrates[substrate_name], self.substrates)
