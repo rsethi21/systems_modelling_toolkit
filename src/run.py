@@ -10,24 +10,24 @@ import pdb
 def plot_tracks(n, time, conditions):
     for condition in conditions:
         n.apply_stimuli(condition["stimuli"], condition["amt"], condition["time_range"])
-        y = n.y(time, steady_state_fold_normalization=True)
+        y = n.y(time, steady_state_fold_normalization=False)
         n.store_track(y, time, condition["path"])
         n.reset_stimuli()
 
 if __name__ == "__main__":
-    interactions = parse_interactions("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/interactions_expanded.csv")
-    substrates = parse_substrates("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/substrates_expanded.csv")
-    rates = parse_rates("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/rates_expanded.csv")
-    experiments = json.load(open("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/experiments.json"))
+    interactions = parse_interactions("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/interactions_expanded.csv")
+    substrates = parse_substrates("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/substrates_expanded.csv")
+    rates = parse_rates("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/rates_expanded.csv")
+    experiments = json.load(open("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/experiments.json"))
     n = Network("network_original", rates, substrates, interactions)
 
     resolution = 10000
     time = np.linspace(0,499,num=resolution)
     for s in n.substrates.keys():
-        print(f"{s} = {n.represent_rate(101, s)}")
+        print(f"{s} = {n.represent_rate(279, s)}")
     
     
-    n.load_adapter("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/adapter.json")
+    # n.load_adapter("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/adapter_expanded.json")
     plot_tracks(n, time, experiments)
 
     # y = n.y(time, steady_state_fold_normalization=True)

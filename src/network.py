@@ -50,6 +50,9 @@ class Network:
                 effect_by_rate[effector.rate]["terms"].append(contribution)
             else:
                 effect_by_rate[effector.rate] = {"effect": effector.effect, "terms": [contribution]}
+                if self.substrates[effector.resultant].total_amt != None and effector.effect > 0:
+                    value = self.substrates[effector.resultant].total_amt - self.substrates[effector.resultant].current_value
+                    effect_by_rate[effector.rate]["terms"].append(value)
         # apply rates from the dictionary assorted
         rate = 0
         for rate_name, output in effect_by_rate.items():
@@ -155,6 +158,8 @@ class Network:
                 effect_by_rate[effector.rate]["terms"].append(contribution)
             else:
                 effect_by_rate[effector.rate] = {"effect": effector.effect, "terms": [contribution]}
+                if self.substrates[effector.resultant].total_amt != None and effector.effect > 0:
+                    effect_by_rate[effector.rate]["terms"].append(f"total - {self.substrates[effector.resultant].name}")
         # apply rates from the dictionary assorted
         rate = ""
         for rate_name, output in effect_by_rate.items():
@@ -266,7 +271,7 @@ class Network:
     def reset_stimuli(self):
         for substrate_name in self.order:
             if self.substrates[substrate_name].substrate_type == "stimulus":
-                self.substrates[substrate_name].total_amt = 0.0
+                self.substrates[substrate_name].total_amt = None
                 self.substrates[substrate_name].initial_value = 0.0
                 self.substrates[substrate_name].current_value = 0.0
                 self.substrates[substrate_name].active_time_ranges = None

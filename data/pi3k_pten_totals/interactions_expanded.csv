@@ -1,0 +1,13 @@
+,name,resultant,stimulus,rate,effect,Kd,n
+0,"interaction1","pPI3K","LPS","LPSstim",1,,
+1,"interaction2","pPTEN","bpV","BPVstim",1,,
+2,"interaction3","pPI3K","LY294002","LY294002stim",-1,,
+3,"interaction4","pAKT","pPTEN","AKTphos",1,"Knegativefeedback","n1"
+4,"interaction5","pAKT","pPI3K","AKTphos",1,"Kpositivefeedback","n2"
+5,"interaction6","pGSK3B","pAKT","GSK3Bphos",1,,
+6,"interaction7","pPI3K","pPI3K","LY294002stim",-1,,
+7,"interaction8","pGSK3B","LiCl","LICLstim",1,,
+8,"interaction9","P2Y12G","ADP","kGp",1,,
+9,"interaction10","pPI3K","P2Y12G","P2Y12stim",1,,
+10,"interaction11","pPTEN","pGSK3B","PTENdephos",-1,,
+11,"interaction12","pPI3K","LiCl","LICLstim",1,,
