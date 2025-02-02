@@ -7,10 +7,18 @@ import json
 import pdb
 
 
+def plot_tracks(n, time, conditions):
+    for condition in conditions:
+        n.apply_stimuli(condition["stimuli"], condition["amt"], condition["time_range"])
+        y = n.y(time, steady_state_fold_normalization=True)
+        n.store_track(y, time, condition["path"])
+        n.reset_stimuli()
+
 if __name__ == "__main__":
     interactions = parse_interactions("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/interactions_expanded.csv")
     substrates = parse_substrates("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/substrates_expanded.csv")
     rates = parse_rates("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/rates_expanded.csv")
+    experiments = json.load(open("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/experiments.json"))
     n = Network("network_original", rates, substrates, interactions)
 
     resolution = 10000
@@ -20,9 +28,11 @@ if __name__ == "__main__":
     
     
     n.load_adapter("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/adapter.json")
-    y = n.y(time, steady_state_fold_normalization=False)
-    n.store_track(y, time, "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/current_fit_atp.csv")
-    n.graph(y, time, path="./figure_literature", substrates_to_plot=["pAKT", "pPTEN", "GSK3B", "LPS"], ylim_lower=0, ylim_higher=2)
+    plot_tracks(n, time, experiments)
+
+    # y = n.y(time, steady_state_fold_normalization=True)
+    # n.store_track(y, time, "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/current_fit_atp.csv")
+    # n.graph(y, time, path="./figure_literature", substrates_to_plot=["pAKT", "pPTEN", "GSK3B", "LPS"], ylim_lower=0, ylim_higher=2)
     
     
     # arguments = json.load(open("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/fitting_parameters.json"))

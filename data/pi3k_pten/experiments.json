@@ -1,0 +1,5 @@
+[
+	{"stimuli": ["ATP"], "amt": [1.0], "time_range": [[100,280]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/current_fit_atp.csv"},
+	{"stimuli": ["LPS"], "amt": [1.0], "time_range": [[100,280]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/current_fit_raw.csv"},
+	{"stimuli": ["LiCl", "LPS"], "amt": [1.0, 1000.0], "time_range": [[100,280], [160,280]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/current_fit_li.csv"}
+]
