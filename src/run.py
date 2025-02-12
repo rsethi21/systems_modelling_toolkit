@@ -22,12 +22,12 @@ if __name__ == "__main__":
     n = Network("network_original", rates, substrates, interactions)
 
     resolution = 10000
-    time = np.linspace(0,499,num=resolution)
+    time = np.linspace(0,999,num=resolution)
     for s in n.substrates.keys():
         print(f"{s} = {n.represent_rate(279, s)}")
     
     
-    # n.load_adapter("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/adapter_expanded.json")
+    n.load_adapter("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/adapter_expanded.json")
     plot_tracks(n, time, experiments)
 
     # y = n.y(time, steady_state_fold_normalization=True)
@@ -35,6 +35,6 @@ if __name__ == "__main__":
     # n.graph(y, time, path="./figure_literature", substrates_to_plot=["pAKT", "pPTEN", "GSK3B", "LPS"], ylim_lower=0, ylim_higher=2)
     
     
-    # arguments = json.load(open("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/fitting_parameters.json"))
-    # data = json.load(open("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/fit_data_expanded.json"))
-    # n.fit(time, data, arguments, path="/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten/adapter_expanded.json", number=10, mlp=4)
+    # arguments = json.load(open("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/fitting_parameters.json"))
+    # data = json.load(open("/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/fit_data_expanded.json"))
+    # n.fit(time, data, arguments, path="/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/adapter_expanded.json", number=10, mlp=4)

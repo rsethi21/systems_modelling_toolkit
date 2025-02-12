@@ -1,5 +1,6 @@
 [
-	{"stimuli": ["ATP"], "amt": [100.0], "time_range": [[100,380]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/current_fit_atp.csv"},
-	{"stimuli": ["LPS"], "amt": [100.0], "time_range": [[100,280]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/current_fit_raw.csv"},
-	{"stimuli": ["LiCl"], "amt": [100.0], "time_range": [[100,280]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/current_fit_li.csv"}
+	{"stimuli": ["ATP"], "amt": [1.0], "time_range": [[230,410]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/current_fit_atp.csv"},
+	{"stimuli": ["ATP", "Ca"], "amt": [1.0, 1.0], "time_range": [[230,410], [230,410]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/current_fit_atp_ca.csv"},
+	{"stimuli": ["LPS"], "amt": [1.0], "time_range": [[230,410]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/current_fit_lps.csv"},
+	{"stimuli": ["LY294002"], "amt": [1.0], "time_range": [[230,410]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/current_fit_ly294.csv"}
 ]

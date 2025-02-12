@@ -9,26 +9,29 @@ library(tidyverse)
 ```
 
 ```{r include=FALSE}
-data.path.raw = "//wsl.localhost/Ubuntu-24.04/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/current_fit_raw.csv"
-data.path.li = "//wsl.localhost/Ubuntu-24.04/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/current_fit_li.csv"
 data.path.atp = "//wsl.localhost/Ubuntu-24.04/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/current_fit_atp.csv"
+data.path.lps = "//wsl.localhost/Ubuntu-24.04/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/current_fit_lps.csv"
+data.path.atp.ca = "//wsl.localhost/Ubuntu-24.04/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/current_fit_atp_ca.csv"
+data.path.ly294 = "//wsl.localhost/Ubuntu-24.04/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/pi3k_pten_totals/current_fit_ly294.csv"
 ```
 
 ```{r}
-df.raw = read.csv(data.path.raw)
-df.li = read.csv(data.path.li)
+df.lps = read.csv(data.path.lps)
+df.ly294 = read.csv(data.path.ly294)
 df.atp = read.csv(data.path.atp)
-colnames(df.raw)[1] = "TIME"
-colnames(df.li)[1] = "TIME"
+df.atp.ca = read.csv(data.path.atp.ca)
+colnames(df.lps)[1] = "TIME"
+colnames(df.ly294)[1] = "TIME"
 colnames(df.atp)[1] = "TIME"
+colnames(df.atp.ca)[1] = "TIME"
 ```
 
 ```{r}
-head(df.li)
+head(df.atp)
 ```
 
 ```{r}
-df = data.frame(TIME=df.raw$TIME, LPS=df.raw$pAKT, ATP=df.atp$pAKT, LI=df.li$pAKT)
+df = data.frame(TIME=df.atp$TIME, LPS=df.lps$pAKT, ATP=df.atp$pAKT, LY=df.ly294$pAKT, ATP_Ca=df.atp.ca$pAKT)
 df %>%
   pivot_longer(cols = c(-TIME), names_to="STIMULI", values_to="VALUES") %>%
   ggplot(aes(x=TIME, y=VALUES, color=STIMULI)) +

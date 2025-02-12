@@ -7,7 +7,7 @@
 5,"bpV",0.0,"stimulus",,,0.0,,"0,500"
 6,"LY294002",0.0,"stimulus",,,0.0,,"0,500"
 7,"HDACi",0.0,"stimulus",,,0.0,,"0,500"
-8,"LiCl",0.0,"stimulus",,,0.0,,"0,500"
-9,"ATP",0.0,"stimulus",,"ATPdephos",0.0,,"0,500"
-10,"ADP",0.0,"enzyme","ATPdephos","ADPDegradation",,"ATP",
-11,"P2Y12G",0.0,"enzyme","kGp","rGp",1.0,,
+8,"ATP",0.0,"stimulus",,,0.0,,"0,500"
+9,"ADP",0.0,"enzyme","ATPdephos","ADPDegradation",,"ATP",
+10,"P2Y12G",0.0,"enzyme","kGp","rGp",1.0,,
+11,"Ca",0.0,"stimulus",,,0.0,,"0,500"

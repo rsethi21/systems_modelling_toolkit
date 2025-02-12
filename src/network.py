@@ -85,8 +85,9 @@ class Network:
             rates.append(self.calculate_rate(time, s))
         return rates
 
-    def y(self, times, parameter_sets=None, steady_state_fold_normalization=True, fold_normalization=False):
-        initials = self.get_initial_values()
+    def y(self, times, initials=None, parameter_sets=None, steady_state_fold_normalization=True, fold_normalization=False):
+        if type(initials) == type(None):
+            initials = self.get_initial_values()
         y = odeint(self.dydt, initials, times, args=(parameter_sets,))
         if fold_normalization:
             factors = y[0,:]
@@ -190,7 +191,7 @@ class Network:
             parameters = json.load(file)
         for rate_name, rate_obj in self.rates.items():
             if rate_name in parameters.keys():
-                rate_obj.value = parameters[rate_name]
+                rate_obj.current_value = parameters[rate_name]
 
     def fit(self, times, data, arguments, path="./adapter.json", initials=None, number=1, mlp=1):
         rates_to_fit = [r for r in list(self.rates.keys()) if not self.rates[r].fixed]
@@ -211,7 +212,9 @@ class Network:
                         y0.append(2**np.random.randn()) # else randomly generate one
                 y0s.append(y0) # append sample conditions to a list of multiple random conditions
         else:
-            y0s = initials
+            y0s = [initials]
+        y0s = np.array(y0s)
+        y0s = np.mean(y0s, axis=0)
 
         def loss(X):
             self.reset_stimuli()
@@ -220,7 +223,7 @@ class Network:
             count = 0
             for experiment in data:
                 self.apply_stimuli(experiment["stimuli"], experiment["amts"], experiment["time_ranges"])
-                predictions = self.y(times)
+                predictions = self.y(times, initials=y0s)
                 for substrate_name, entries in experiment["data"].items():
                     index = self.order.index(substrate_name)
                     for entry in entries:
