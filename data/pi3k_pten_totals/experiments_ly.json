@@ -1,0 +1,7 @@
+[
+	{"stimuli": ["LPS"], "amt": [1.0], "time_range": [[1380, 1560]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/ly/lps.csv", "apply": null, "adapter": null},
+	{"stimuli": ["LY294002", "LPS"], "amt": [0.1, 1.0], "time_range": [[1380,1560], [1375, 1560]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/ly/lyp1.csv", "apply": null, "adapter": null},
+	{"stimuli": ["LY294002", "LPS"], "amt": [1.0, 1.0], "time_range": [[1380,1560], [1375, 1560]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/ly/ly1.csv", "apply": null, "adapter": null},
+	{"stimuli": ["LY294002", "LPS"], "amt": [10.0, 1.0], "time_range": [[1380,1560], [1375, 1560]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/ly/ly10.csv", "apply": null, "adapter": null},
+	{"stimuli": ["LY294002", "LPS"], "amt": [100.0, 1.0], "time_range": [[1380,1560], [1375, 1560]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/ly/ly100.csv", "apply": null, "adapter": null}
+]

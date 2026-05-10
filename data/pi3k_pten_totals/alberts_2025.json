@@ -1,0 +1,6 @@
+[
+	{"stimuli": ["LPS"], "amt": [1.0], "time_range": [[2800,2919]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/albert/LPS (100ngml).csv", "apply": null, "adapter": null},
+	{"stimuli": ["ATP", "Ca"], "amt": [2.0, 1.5], "time_range": [[2800,2919], [2800,2919]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/albert/100um ATP.csv", "apply": null, "adapter": null},
+	{"stimuli": ["ATP", "Ca"], "amt": [2.0, 1.0], "time_range": [[2800,2919], [2800,2919]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/albert/100um ATP + Ca + EGTA.csv", "apply": null, "adapter": null},
+	{"stimuli": ["ATP", "Ca"], "amt": [2.0, 2.5], "time_range": [[2800,2919], [2800,2919]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/albert/100um ATP + Ca.csv", "apply": null, "adapter": null}
+]

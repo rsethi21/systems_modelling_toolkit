@@ -1,0 +1,7 @@
+,name,value,lower_bound,upper_bound,bound_type,fixed
+0,"k1",1.0,0.01,1.0,"real",True
+1,"r1",1.0,0.01,1.0,"real",True
+2,"k2",1.0,0.01,1.0,"real",True
+3,"r2",1.0,0.01,1.0,"real",True
+4,"n1",1.0,1,10,"int",True
+5,"K1",1.0,1,10,"int",True

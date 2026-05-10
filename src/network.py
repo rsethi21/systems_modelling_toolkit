@@ -9,6 +9,7 @@ from tqdm import tqdm
 import pdb
 import random
 import json
+import math
 
 class Network:
     def __init__(self, name: str, rates_dictionary: dict, substrates_dictionary: dict, interactions_dictionary: dict):
@@ -85,7 +86,7 @@ class Network:
             rates.append(self.calculate_rate(time, s))
         return rates
 
-    def y(self, times, initials=None, parameter_sets=None, steady_state_fold_normalization=True, fold_normalization=False):
+    def y(self, times, initials=None, parameter_sets=None, steady_state_fold_normalization=True, fold_normalization=False, steady_state_fold_w_existing=False):
         if type(initials) == type(None):
             initials = self.get_initial_values()
         y = odeint(self.dydt, initials, times, args=(parameter_sets,))
@@ -102,12 +103,39 @@ class Network:
                 if self.substrates[substrate].substrate_type == "stimulus":
                     steady_state[i] = 1
             y = y/steady_state
+        elif steady_state_fold_w_existing != None:
+            self.reset_stimuli()
+            self.apply_stimuli(steady_state_fold_w_existing["stimuli"], steady_state_fold_w_existing["amts"], steady_state_fold_w_existing["time_ranges"])
+            steady_state = odeint(self.dydt, initials, times, args=(parameter_sets,))[-1,:]
+            for i, substrate in enumerate(self.order):
+                if self.substrates[substrate].substrate_type == "stimulus":
+                    steady_state[i] = 1
+            y = y/steady_state
         return y
 
-    def y_distribution(self):
-        pass
+    def y_distribution(self, times, samples, initials=None, parameter_sets=None, steady_state_fold_normalization=True, fold_normalization=False):
+        if initials == None:
+            y0s = []
+            for _ in tqdm(range(samples),desc="Generating Random Initial",total=samples):
+                y0 = []
+                for i, substrate in enumerate(self.order):
+                    if self.substrates[substrate].substrate_type == "stimulus":
+                        y0.append(0.0)
+                    else:
+                        y0.append(np.exp(np.random.randn()))
+                y0s.append(y0)
+        else:
+            y0s = initials
+        ys = []
+        for y0 in y0s:
+            self.set_initial_values(self.order, y0)
+            ys.append(self.y(times, initials=y0, parameter_sets=parameter_sets, steady_state_fold_normalization=steady_state_fold_normalization, fold_normalization=fold_normalization))
+        min_y = np.mean(ys, axis=0) - 1.96*np.std(ys, axis=0)/math.sqrt(len(ys))
+        max_y = np.mean(ys, axis=0) + 1.96*np.std(ys, axis=0)/math.sqrt(len(ys))
+        mean_y = np.mean(ys, axis=0)
+        return mean_y, min_y, max_y
 
-    def graph(self, y, time, path="./figure.png", random_state=10, substrates_to_plot=None, ylim_lower=None, ylim_higher=None):
+    def graph(self, y, time, path="./figure.png", random_state=10, substrates_to_plot=None, ylim_lower=None, ylim_higher=None, xlim_lower=None, xlim_higher=None):
         if substrates_to_plot == None:
             substrates_to_plot = self.order
         colors = list(mcolors.CSS4_COLORS.keys())
@@ -121,10 +149,26 @@ class Network:
         plt.legend(loc="upper right", fontsize=5)
         if ylim_lower != None and ylim_higher != None:
             plt.ylim(ylim_lower, ylim_higher)
+        if xlim_lower != None and xlim_higher != None:
+            plt.xlim(xlim_lower, xlim_higher)
         fig.savefig(path)
 
-    def graph_distribution(self):
-        pass
+    def graph_distribution(self, mean_y, min_y, max_y, time, path="./figure.png", random_state = 10, substrates_to_plot = None, ylim_lower=None, ylim_higher=None):
+        if substrates_to_plot == None:
+            substrates_to_plot = self.order
+        colors = list(mcolors.CSS4_COLORS.keys())
+        random.seed(random_state)
+        random.shuffle(colors)
+        fig = plt.figure()
+        for i, substrate in tqdm(enumerate(substrates_to_plot), desc="Plotting Each Substrate", total=len(substrates_to_plot)):
+            plt.fill_between(time, min_y[:, self.order.index(self.substrates[substrate].name)], max_y[:, self.order.index(self.substrates[substrate].name)], color=colors[i], alpha=0.2)
+            plt.plot(time, mean_y[:,self.order.index(self.substrates[substrate].name)], colors[i], label=self.substrates[substrate].name)
+        plt.xlabel("Time (mins)",fontsize=12)
+        plt.ylabel("Concentration (AU)",fontsize=12)
+        plt.legend(loc="upper right", fontsize=5)
+        if ylim_lower != None and ylim_higher != None:
+            plt.ylim(ylim_lower, ylim_higher)
+        fig.savefig(path)
 
     def represent_rate(self, t, substrate_name):
         # calculate base rates
@@ -192,8 +236,9 @@ class Network:
         for rate_name, rate_obj in self.rates.items():
             if rate_name in parameters.keys():
                 rate_obj.current_value = parameters[rate_name]
+                rate_obj.initial_value = parameters[rate_name]
 
-    def fit(self, times, data, arguments, path="./adapter.json", initials=None, number=1, mlp=1):
+    def fit(self, times, data, arguments, path="./adapter.json", initials=None, number=1, mlp=1, lambd=0.01):
         rates_to_fit = [r for r in list(self.rates.keys()) if not self.rates[r].fixed]
         bounds = [[self.rates[r].lower_bound, self.rates[r].upper_bound] for r in rates_to_fit]
         bound_types = [self.rates[r].bound_type for r in rates_to_fit]
@@ -209,11 +254,10 @@ class Network:
                     if self.substrates[s].substrate_type == "stimulus": # if the substrate is a stimulus category, use 0 for initial condition
                         y0.append(self.substrates[s].initial_value)
                     else:
-                        y0.append(2**np.random.randn()) # else randomly generate one
+                        y0.append(np.exp(np.random.randn())) # else randomly generate one
                 y0s.append(y0) # append sample conditions to a list of multiple random conditions
         else:
-            y0s = [initials]
-        y0s = np.array(y0s)
+            y0s = initials
         y0s = np.mean(y0s, axis=0)
 
         def loss(X):
@@ -223,16 +267,24 @@ class Network:
             count = 0
             for experiment in data:
                 self.apply_stimuli(experiment["stimuli"], experiment["amts"], experiment["time_ranges"])
+                # predictions, lower, upper = self.y_distribution(times, len(y0s), initials=y0s)
                 predictions = self.y(times, initials=y0s)
                 for substrate_name, entries in experiment["data"].items():
                     index = self.order.index(substrate_name)
                     for entry in entries:
                         prediction = predictions[entry[0], index]
-                        diff = prediction - entry[1]
+                        # lower_bound = lower[entry[0], index]
+                        # upper_bound = lower[entry[0], index]
+                        # if lower_bound <= entry[1] <= upper_bound:
+                        diff = prediction-entry[1]
+                        # elif entry[1] < lower_bound:
+                        #     diff = entry[1] - lower_bound
+                        # else:
+                        #     diff = upper_bound - entry[1]
                         cost += diff**2
                         count += 1
                 self.reset_stimuli()
-            return float(cost)/count
+            return float(cost)/count + float(sum(np.array(X)**2) * lambd)
         fitting_model = ga(function = loss,
                            dimension = len(bounds),
                            variable_type = bound_types,
@@ -252,6 +304,10 @@ class Network:
 
     def get_initial_values(self):
         return [self.substrates[substrate_name].initial_value for substrate_name in self.order] # return substrate values using the specific order
+    
+    def set_initial_values(self, names, y0s):
+        for name, value in zip(names, y0s):
+            self.substrates[name].initial_value = value
 
     def get_current_values(self):
         return [self.substrates[substrate_name].current_value for substrate_name in self.order] # return substrate values using the specific order
@@ -265,7 +321,7 @@ class Network:
             if self.substrates[substrate_name].substrate_type == "stimulus":
                 if self.substrates[substrate_name].active_time_ranges != None and np.nan != self.substrates[substrate_name].active_time_ranges:
                     if self.substrates[substrate_name].active_time_ranges[0] <= t <= self.substrates[substrate_name].active_time_ranges[1]:
-                        if abs(self.substrates[substrate_name].current_value - self.substrates[substrate_name].total_amt) <= 0.01:
+                        if abs(self.substrates[substrate_name].current_value - self.substrates[substrate_name].total_amt) == 0:
                             self.substrates[substrate_name].applied = True
                     else:
                         self.substrates[substrate_name].applied = False
@@ -274,8 +330,8 @@ class Network:
     def reset_stimuli(self):
         for substrate_name in self.order:
             if self.substrates[substrate_name].substrate_type == "stimulus":
-                self.substrates[substrate_name].total_amt = None
-                self.substrates[substrate_name].initial_value = 0.0
-                self.substrates[substrate_name].current_value = 0.0
+                # self.substrates[substrate_name].total_amt = None
+                self.substrates[substrate_name].initial_value = self.substrates[substrate_name].initial_value
+                self.substrates[substrate_name].current_value = self.substrates[substrate_name].initial_value
                 self.substrates[substrate_name].active_time_ranges = None
                 self.substrates[substrate_name].applied = False

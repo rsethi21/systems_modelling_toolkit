@@ -1,0 +1,3 @@
+,name,initial_value,substrate_type,activation_rate,deactivation_rate,total_amt,other_state,active_time_ranges
+0,"PI3K",1.0,"enzyme","k1","r1",1.0,,
+1,"AKT",1.0,"enzyme","k2","r2",1.0,,

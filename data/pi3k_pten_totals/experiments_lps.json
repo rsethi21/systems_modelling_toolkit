@@ -1,0 +1,5 @@
+[
+	{"stimuli": ["LPS", "ATP"], "amt": [1.0, 1.0], "time_range": [[1200,1380], [1380, 1560]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/lps/lps_and_atp.csv", "apply": null, "adapter": null},
+	{"stimuli": ["ATP"], "amt": [1.0], "time_range": [[1380, 1560]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/lps/atp.csv", "apply": null, "adapter": null},
+	{"stimuli": ["LPS"], "amt": [1.0], "time_range": [[1380, 1560]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/lps/lps.csv", "apply": null, "adapter": null}
+]

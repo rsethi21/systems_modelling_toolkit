@@ -1,0 +1,6 @@
+[
+	{"stimuli": ["ATP"], "amt": [1.0], "time_range": [[720,900]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/atp_ca/atp_only.csv", "apply": null},
+	{"stimuli": ["ATP", "Ca"], "amt": [1.0, 0.1], "time_range": [[720,900], [720,900]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/atp_ca/atp_ca01.csv", "apply": null},
+	{"stimuli": ["ATP", "Ca"], "amt": [1.0, 1.0], "time_range": [[720,900], [720,900]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/atp_ca/atp_ca1.csv", "apply": null},
+	{"stimuli": ["ATP", "Ca"], "amt": [1.0, 10.0], "time_range": [[720,900], [720,900]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/atp_ca/atp_ca10.csv", "apply": null}
+]

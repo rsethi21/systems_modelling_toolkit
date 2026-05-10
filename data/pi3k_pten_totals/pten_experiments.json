@@ -1,0 +1,7 @@
+[
+	{"stimuli": ["ATP", "bpV"], "amt": [1.0, 1.0], "time_range": [[720,900], [720,900]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/current_fit_atp_bpv1.csv", "apply": null},
+	{"stimuli": ["ATP", "bpV"], "amt": [1.0, 0.5], "time_range": [[720,900], [720,900]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/current_fit_atp_bpv5.csv", "apply": null},
+	{"stimuli": ["ATP", "bpV"], "amt": [1.0, 0.25], "time_range": [[720,900], [720,900]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/current_fit_atp_bpv25.csv", "apply": null},
+	{"stimuli": ["ATP", "bpV"], "amt": [1.0, 0.125], "time_range": [[720,900], [720,900]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/current_fit_atp_bpv125.csv", "apply": null},
+	{"stimuli": ["ATP"], "amt": [1.0], "time_range": [[720,900]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/current_fit_atp_nobpv.csv", "apply": null}
+]

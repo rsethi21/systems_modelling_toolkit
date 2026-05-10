@@ -1,0 +1,4 @@
+[
+	{"stimuli": ["ATP", "Ca"], "amt": [2.0, 1.0], "time_range": [[2800,2919], [2800,2919]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/atp_calcium/100um ATP - Ca.csv", "apply": null, "adapter": null},
+	{"stimuli": ["ATP", "Ca"], "amt": [2.0, 2.0], "time_range": [[2800,2919], [2800,2919]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/atp_calcium/100um ATP + Ca.csv", "apply": null, "adapter": null}
+]

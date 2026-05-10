@@ -1,0 +1,9 @@
+[
+	{"stimuli": ["ATP"], "amt": [1.0], "time_range": [[1800,1980]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/atp/atp_original.csv", "apply": null, "adapter": null},
+	{"stimuli": ["ATP"], "amt": [0.001], "time_range": [[1800,1980]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/atp/atp_001.csv", "apply": null, "adapter": null},
+	{"stimuli": ["ATP"], "amt": [0.01], "time_range": [[1800,1980]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/atp/atp_01.csv", "apply": null, "adapter": null},
+	{"stimuli": ["ATP"], "amt": [0.1], "time_range": [[1800,1980]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/atp/atp_1.csv", "apply": null, "adapter": null},
+	{"stimuli": ["ATP"], "amt": [10.0], "time_range": [[1800,1980]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/atp/atp_10.csv", "apply": null, "adapter": null},
+	{"stimuli": ["ATP"], "amt": [100.0], "time_range": [[1800,1980]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/atp/atp_100.csv", "apply": null, "adapter": null},
+	{"stimuli": ["ATP"], "amt": [1000.0], "time_range": [[1800,1980]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/atp/atp_1000.csv", "apply": null, "adapter": null}
+]

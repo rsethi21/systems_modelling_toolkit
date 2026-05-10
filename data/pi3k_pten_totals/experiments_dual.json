@@ -1,0 +1,9 @@
+[
+	{"stimuli": ["LPS"], "amt": [1.0], "time_range": [[1620,1800]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/dual/div100.csv", "apply": null, "adapter": {"PTENphos": 0.01, "GSK3Bphos": 0.01}},
+	{"stimuli": ["LPS"], "amt": [1.0], "time_range": [[1620,1800]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/dual/lps.csv", "apply": null, "adapter": null},
+	{"stimuli": ["LPS"], "amt": [1.0], "time_range": [[1620,1800]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/dual/x100.csv", "apply": null, "adapter": {"PTENphos": 100, "GSK3Bphos": 100}},
+	{"stimuli": ["LPS"], "amt": [1.0], "time_range": [[1620,1800]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/dual/ptendiv100.csv", "apply": null, "adapter": {"PTENphos": 0.01}},
+	{"stimuli": ["LPS"], "amt": [1.0], "time_range": [[1620,1800]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/dual/gskdiv100.csv", "apply": null, "adapter": {"GSK3Bphos": 0.01}},
+	{"stimuli": ["LPS"], "amt": [1.0], "time_range": [[1620,1800]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/dual/ptenx100.csv", "apply": null, "adapter": {"PTENphos": 100.0}},
+	{"stimuli": ["LPS"], "amt": [1.0], "time_range": [[1620,1800]], "path": "/home/rsethi/school_rsh/PKH/systems_modelling_toolkit/data/outputs/dual/gskx100.csv", "apply": null, "adapter": {"GSK3Bphos": 100.0}}
+]
