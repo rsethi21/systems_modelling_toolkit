@@ -1,0 +1,14 @@
+,name,initial_value,substrate_type,activation_rate,deactivation_rate,total_amt,other_state,active_time_ranges
+0,"pPTEN",0.0,"enzyme","PTENphos","PTENdephos",1.0,,
+1,"pPI3K",0.0,"enzyme","PI3Kphos","PI3Kdephos",1.0,,
+2,"pAKT",0.0,"enzyme","AKTphos","AKTdephos",1.0,,
+3,"pGSK3B",0.0,"enzyme","GSK3Bphos","GSK3Bdephos",1.0,,
+4,"LPS",0.0,"stimulus",,,0.0,,"0,700"
+5,"bpV",0.0,"stimulus",,,0.0,,"0,700"
+6,"LY294002",0.0,"stimulus",,,0.0,,"0,700"
+7,"HDACi",0.0,"stimulus",,,0.0,,"0,700"
+8,"ATP",0.0,"stimulus",,,0.0,,"0,700"
+9,"ADP",0.0,"enzyme","ATPdephos","ADPDegradation",,"ATP",
+10,"P2Y12G",0.0,"enzyme","kGp","rGp",1.0,,
+11,"Ca",0.1,"stimulus",,,1.0,,"0,700"
+12,"PIP3",0.0,"enzyme","PIPactivation","PIPdeactivation",1.0,,
